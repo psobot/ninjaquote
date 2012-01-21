@@ -1,5 +1,5 @@
-NEW_TIMER = 1000;
-REVEAL_TIMER = 500;
+NEW_TIMER = 2000;
+REVEAL_TIMER = 1000;
 
 window.log = function(){
   log.history = log.history || [];   // store logs to an array for reference
