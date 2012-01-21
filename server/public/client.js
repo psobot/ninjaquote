@@ -172,7 +172,7 @@ loadFB = function() {
     }
   });
 
-  $('#stats a').click(function(e){
+  $('#score a').click(function(e){
     e.preventDefault();
     window.location = "/?#"+FB.getUserID();
     window.location.reload();
