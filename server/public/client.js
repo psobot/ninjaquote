@@ -84,6 +84,7 @@ fetchQuestion = function() {
 
       $('#quote p').html(data.quote.message);
       $('#question').fadeIn('slow');    
+      $('#whosaid').fadeIn('slow');    
     });
   });
 }
