@@ -122,8 +122,8 @@ window.fbAsyncInit = function() {
   $(".person").click(function(e){
     e.preventDefault();
     if (!$(this).hasClass('clicked')){
-      totalCounter++;
-      if ($(this).hasClass('yes')) rightCounter++;
+      total_counter++;
+      if ($(this).hasClass('yes')) right_counter++;
     }
     $(this).addClass('clicked');
     if ($(this).hasClass('no')) {
