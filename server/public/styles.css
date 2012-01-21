@@ -63,6 +63,15 @@ a:hover {
   display: none;
 }
 
+#stats h2 {
+  margin-left: 10px;
+}
+
+#stats img {
+  float: left;
+  max-height: 300px;
+}
+
 #loading {
   width: 450px;
   display: none;
