@@ -77,8 +77,7 @@ fetchQuestion = function() {
       });
 
       $('#quote p').html(data.quote.message);
-
-      $('#question').fadeIn();    
+      $('#question').fadeIn('slow');    
     });
   });
 }
