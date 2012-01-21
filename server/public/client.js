@@ -187,6 +187,17 @@ window.fbAsyncInit = function() {
             'How well does '+userdata.first_name+" know "+(userdata.gender=='female'?'her':'his')+" friends?"
           );
           $("#stats .top img").attr('src', "http://graph.facebook.com/"+user_uid+"/picture?type=large");
+          
+
+          var people = {};
+          for (var key in response){
+            var obj = response[key]
+            var person_id = obj.split('-')[0];
+            if (!(person_id in people)) people[person_id] = {'t': 0, 'f': 0};
+            people[person_id][obj.split('-')[1]]++;
+          }
+          window.log(people);
+
           $("#stats").show();
         });
       }
