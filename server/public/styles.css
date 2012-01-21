@@ -1,13 +1,13 @@
 body {
-  font-family: 'Molengo', sans-serif;
+  font-family: 'Esteban', serif;
 }
 
 h1, h2 {
-  font-family: 'Rancho', cursive;
+  font-family: 'Esteban', serif;
 }
 
 h2 {
-  font-size: 32pt;
+  font-size: 30pt;
   text-align: center;
 }
 
@@ -24,7 +24,7 @@ a:hover {
 .start {
   padding: 20px;
   margin: 0 auto;
-  font-size: 32pt;
+  font-size: 30pt;
   font-family: 'Rancho', cursive;
   border-radius: 10px;
   width: 400px;
@@ -127,14 +127,14 @@ a:hover {
 #quote p {
   padding: 20px 20px 60px 20px;
   font-size: 30pt;
-  font-family: 'Rancho', cursive;
+  font-family: 'Esteban', cursive;
   text-align: justify;
   margin: 0;
   display: inline;
 }
 
 .quotes {
-  font-family: 'Rancho', cursive;
+  font-family: 'Esteban', cursive;
   font-size: 99pt;
   position: absolute;
 }
@@ -143,7 +143,7 @@ a:hover {
   left: -12pt;
 }
 .quotes.right {
-  right: -15pt;
+  right: -6pt;
   bottom: -30pt;
 }
 
@@ -159,8 +159,8 @@ a:hover {
 .person {
   width: 148px;
   text-align: center;
-  font-size: 20pt;
-  font-family: 'Rancho';
+  font-size: 14pt;
+  font-family: 'Esteban';
   float: left;
   margin-left: 10px;
   -webkit-transform: rotate(7deg);
