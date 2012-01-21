@@ -77,7 +77,7 @@ window.fbAsyncInit = function() {
         e.preventDefault();
         getQuestion();
       });
-    }   
+    } else $('.fb-login-button').fadeIn();
   });
 
   FB.Event.subscribe('auth.login', function(response) {
