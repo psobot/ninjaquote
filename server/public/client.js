@@ -200,7 +200,6 @@ window.fbAsyncInit = function() {
           }
           
           sorted_people.sort(function(a, b){
-            window.log(a, b);
             var a_total = people[a].t + people[a].f;
             var a_percent_right = (people[a].t/total)*100;
             var b_total = people[b].t + people[b].f;
@@ -209,7 +208,8 @@ window.fbAsyncInit = function() {
           });
 
           ul = $('#stats ul')  
-          for (person_id in sorted_people){
+          for (var i = 0; i < sorted_people.length; i++){
+            person_id = sorted_people[i];
             var total = people[person_id].t + people[person_id].f;
             var percent_right = (people[person_id].t/total)*100;
             ul.append(
