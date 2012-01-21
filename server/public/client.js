@@ -199,7 +199,15 @@ window.fbAsyncInit = function() {
           
           ul = $('#stats ul')  
           for (person_id in people){
-            ul.append('<li>'+fbimg(person_id, 'square')+'</li>');
+            var total = people[person_id].t + people[person_id].f;
+            var percent_right = (people[person_id].t/total)*100;
+            ul.append(
+              '<li>'+
+              fbimg(person_id, 'square')+
+              '<div class="bar">'+
+                '<div class="right" style="width:'+percent_right+'%">'+
+              '</div>'+
+              '</div></li>');
           }
 
           $("#stats").show();
