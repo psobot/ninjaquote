@@ -191,19 +191,30 @@ window.fbAsyncInit = function() {
           
 
           var people = {};
+          var sorted_people = [];
           for (var key in response){
             var person_id = key.split('-')[0];
             if (!(person_id in people)) people[person_id] = {'t': 0, 'f': 0};
             people[person_id][key.split('-')[1]] = parseInt(response[key]);
+            sorted_people.push(person_id);
           }
           
+          sorted_people = sorted_people.sort(function(a, b){
+            var a_total = people[a].t + people[a].f;
+            var a_percent_right = (people[a].t/a_total)*100;
+            var b_total = people[b].t + people[b].f;
+            var b_percent_right = (people[b].t/b_total)*100;
+            return b_percent_right - a_percent_right;
+          });
+          
           ul = $('#stats ul')  
-          for (person_id in people){
+          for (var i = 0; i < sorted_people.length; i++){
+            person_id = sorted_people[i];
             var total = people[person_id].t + people[person_id].f;
             var percent_right = (people[person_id].t/total)*100;
             ul.append(
-              '<li>'+
-              fbimg(person_id, 'square')+
+              '<li><a href="http://facebook.com/'+person_id+'">'+
+              fbimg(person_id, 'square')+"</a>"+
               '<div class="bar">'+
               '<div class="score_text">'+
                 people[person_id].t+'/'+total+" ("+Math.round(percent_right)+"%)</div>"+
