@@ -18,8 +18,6 @@ var graph_api = function(path, callback) {
         method: 'GET'
     };
     
-    console.log(options);
-    
     var req = https.request(options, function(res) {
         var data = '';
         
@@ -49,13 +47,12 @@ app.get('/', function(req, res) {
 });
 
 var get_random_friend = function(token, probability, page, callback) {
-    var path = '/me/friends?access_token=' + token + '&limit=10' + '&offset=' + (page * page_size);
+    var path = '/me/friends?access_token=' + token + '&limit=' + page_size  + '&offset=' + (page * page_size);
     graph_api(path, function (ret) {
         if (ret == null) {
             callback(null);
         }
-        
-        if (ret.data.length == 0) {
+        else if (ret.data.length == 0) {
             get_random_friend(token, 1.0, Math.floor(Math.random() * page), callback); 
         }
         else if (Math.random() > probability) {
@@ -71,11 +68,17 @@ var get_random_friend = function(token, probability, page, callback) {
     });
 };
 
-var get_random_quote = function(token, id, probability, callback) {
-    var path = '/' + id + '/statuses?access_token=' + token;
+var get_random_quote = function(token, id, probability, page, callback) {
+    var path = '/' + id + '/statuses?access_token=' + token + '&limit=' + page_size + '&offset=' + (page * page_size);
     graph_api(path, function (ret) {
-        if ((ret == null) || (ret.data.length == 0)) {
+        if (ret == null) {
             callback(null);
+        }
+        else if (ret.data.length == 0) {
+            get_random_quote(token, id, 1.0, Math.floor(Math.random() * page), callback); 
+        }
+        else if (Math.random() > probability) {
+            get_random_quote(token, id, (probability * 0.5), page + 1, callback); 
         }
         else {
             var offset = Math.floor(Math.random() * ret.data.length);
@@ -91,7 +94,6 @@ var get_entry = function(token, callback) {
             get_entry(token, callback);
         }
         else {
-            console.log("log1");
             var friend1 = person;
             get_random_friend(token, 0.5, 0, function (person) {
                 if ((person == null) || (person.id == friend1.id)) {
@@ -99,17 +101,15 @@ var get_entry = function(token, callback) {
                     get_entry(token, callback);
                 }
                 else {
-                    console.log("log2");
                     var friend2 = person;
                     var chosen_one = (Math.floor(Math.random() * 2) == 0) ? friend1 : friend2;
                     
-                    get_random_quote(token, chosen_one.id, 1, function (quote) {
+                    get_random_quote(token, chosen_one.id, 0.5, 0, function (quote) {
                         if ((quote == undefined) || (quote == null)) {
                             console.log("retry - bad quote");
                             get_entry(token, callback);
                         }
                         else {
-                            console.log("done");
                             callback(friend1, friend2, quote);
                         }
                     });
@@ -121,7 +121,6 @@ var get_entry = function(token, callback) {
 
 app.get('/get_entry', function(req, res) {
     get_entry(req.query.token, function (friend1, friend2, quote) {
-        console.log('sent');
         res.json({
             friend1: friend1,
             friend2: friend2,
