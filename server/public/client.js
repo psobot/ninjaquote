@@ -1,4 +1,12 @@
-NEW_TIMER = 5000;
+NEW_TIMER = 1000;
+
+window.log = function(){
+  log.history = log.history || [];   // store logs to an array for reference
+  log.history.push(arguments);
+  if(this.console){
+    console.log( Array.prototype.slice.call(arguments) );
+  }
+};
 
 fbimg = function(id) {
   return "<img src='http://graph.facebook.com/" + id + "/picture?type=large' />";
@@ -18,26 +26,25 @@ reinit = function() {
 getQuestion = function() {
   $('#header').slideUp();
   $('#question').slideUp();
-  reinit();
   $("#loading").slideDown();
   fetchQuestion();
 }
 
 getNewQuestion = function() {
-  $('#header').slideUp();
-  $('#question').slideUp();
-  reinit();
   $("#next_spinner_container").slideDown();
   fetchQuestion();
 }
 
 fetchQuestion = function() {
   $.getJSON('get_entry', {token : FB.getAccessToken() }, function(data) {
-    console.log(data);
+    window.log(data);
 
     people = $('#people_wrapper a.person');
     person1div = $(people[0]);
     person2div = $(people[1]);
+
+    $("#question").slideUp();
+    reinit();
 
     $(".front h3", person1div).html(data.friend1.first_name);
     $(".front h3", person2div).html(data.friend2.first_name);
@@ -96,12 +103,12 @@ window.fbAsyncInit = function() {
   });
 
   FB.Event.subscribe('auth.login', function(response) {
-    console.log(response);
+    window.log(response);
     if (response.authResponse) {
       $('.fb-login-button').fadeOut();
       getQuestion();
     } else {
-      console.log('User cancelled login or did not fully authorize.');
+      window.log('User cancelled login or did not fully authorize.');
     }
   });
 
