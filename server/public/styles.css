@@ -97,6 +97,7 @@ a:hover {
 
 #stats ul li .bar .right {
   background: #aaffa4;
+  height: 50px;
 }
 
 #stats ul li img {
