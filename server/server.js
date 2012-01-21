@@ -48,7 +48,10 @@ var get_random_friend = function(token, probability, callback) {
     var path = '/me/friends?access_token=' + token;
     graph_api(path, function (ret) {
         var offset = Math.floor(Math.random() * ret.data.length);
-        callback(ret.data[offset]);
+        var path = '/' + ret.data[offset].id + '?access_token=' + token;
+        graph_api(path, function (ret) {
+            callback(ret);
+        });
     });
 };
 
