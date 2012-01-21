@@ -67,6 +67,7 @@ var get_entry = function(token, callback) {
             var friend2 = person;
             get_random_quote(token, friend1.id, 1, function (quote) {
                 if (quote == undefined) {
+                  console.log("try");
                     get_entry(token, callback)
                 }
                 else {

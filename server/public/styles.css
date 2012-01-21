@@ -14,11 +14,31 @@ a {
 
 a:hover {
   text-decoration: underline;
-} 
+}
+
+.image_128 {
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+}
+
+.image_128 {
+  min-height: 128px;
+  min-width: 128px;
+}
 
 #header {
   height: 50px;
   background: #ccc;
+}
+
+#loading_spinner {
+  padding-left: 60px;
+  display: none;
+}
+
+#question {
+  display: none;
 }
 
 #whosaid {
