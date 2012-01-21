@@ -145,6 +145,7 @@ window.fbAsyncInit = function() {
       }, NEW_TIMER);
     }
   });
+  if (!$.browser.webkit) $('body').addClass('noflip');
 };
 (function(d){
     var js, id = 'facebook-jssdk';
