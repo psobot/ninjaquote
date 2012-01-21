@@ -21,6 +21,9 @@ reinit = function() {
   $('.yes').removeClass('yes');
   $('.no').removeClass('no');
   $('.clicked').removeClass('clicked');
+  $('.person.yes .back h3').show();
+  $('.person.yes .back p').show();
+  $('.person.yes .back p.wrong').hide();
 }
 
 //#next_spinner_container
