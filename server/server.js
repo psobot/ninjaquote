@@ -17,61 +17,66 @@ app.configure(function(){
     app.use(app.router);
 });
 
-var get_random = function(type, token, probability, page, callback, error) {
-    var path = '/' + type + '?access_token=' + token + '&limit=' + page_size  + '&offset=' + (page * page_size);
-    opengraph.api(path, function (ret) {
-        if ((ret == null) || (ret.data.length == 0)) {
+var get_random_friends = function(token, num, callback, error) {
+    var query = 'SELECT+uid2+FROM+friend+WHERE+uid1=me()';
+    opengraph.fql(query, token, function (res) {
+        if ((res == null) || (res.data == null) || (res.data.length < num)) {
             error();
         }
-        else if (ret.data.length == 0) {
-            get_random(type, token, 1.0, Math.floor(Math.random() * page), callback, error); 
-        }
-        else if (Math.random() > probability) {
-            get_random(type, token, (probability * 0.5), page + 1, callback, function () {
-                callback(ret.data[Math.floor(Math.random() * ret.data.length)]);
-            }); 
-        }
         else {
-            callback(ret.data[Math.floor(Math.random() * ret.data.length)]);
+            var friends_ids = new Array();
+            for (var i = 0; i < num; i++) {
+                var friend_id = res.data[Math.floor(Math.random() * res.data.length)];
+                if (friends_ids.indexOf(friend_id.uid2) == -1) {
+                    friends_ids.push(friend_id.uid2);
+                }
+                else {
+                    i--;
+                }
+            }
+            
+            var query = 'SELECT+uid,first_name,last_name+FROM+user+WHERE+';
+            for (var i = 0; i < friends_ids.length; i++) {
+                query = query + "uid=" + friends_ids[i];
+                if (i < friends_ids.length - 1) {
+                    query = query + '+OR+';
+                }
+            }
+            opengraph.fql(query, token, function (res) {
+                if ((res == null) || (res.data == null) || (res.data.length != num)) {
+                    error();
+                }
+                else {
+                    callback(res.data);
+                }
+            });
         }
     });
 };
 
-var get_random_friend = function(token, callback, error) {
-    get_random('me/friends', token, 0.5, 0, function(person_entry) {
-        var path = '/' + person_entry.id + '?access_token=' + token;
-        opengraph.api(path, function (person) {
-            callback(person);
-        });
-    }, error);
-};
-
 var get_random_quote = function(token, id, callback, error) {
-    get_random(id + '/statuses', token, 0.5, 0, callback, error);
+    var query = 'SELECT+uid,status_id,message+FROM+status+WHERE+uid='+id;
+    opengraph.fql(query, token, function (res) {
+        if ((res == null) || (res.data == null) || (res.data.length < 1)) {
+            error();
+        }
+        else {
+            callback(res.data[Math.floor(Math.random() * res.data.length)]);
+        }
+    });
 };
 
 var get_entry = function(token, callback, error) {
-    get_random_friend(token, function (friend1) {
-        get_random_friend(token, function (friend2) {
-            if (friend1.id == friend2.id) {
-                console.log("retry - duplicate friend 2");
-                get_entry(token, callback, error);
-            }
-            else {
-                var chosen_one = (Math.floor(Math.random() * 2) == 0) ? friend1 : friend2;
-                get_random_quote(token, chosen_one.id, function (quote) {
-                    callback(friend1, friend2, quote);
-                }, function() {
-                    console.log("retry - bad quote");
-                    get_entry(token, callback, error);
-                });
-            }
-        }, function() {
-            console.log("retry - bad friend 2");
+    get_random_friends(token, 2, function (friends) {
+        var chosen_one = (Math.floor(Math.random() * 2) == 0) ? friends[0] : friends[1];
+        get_random_quote(token, chosen_one.uid, function (quote) {
+            callback(friends[0], friends[1], quote);
+        }, function () {
+            console.log("retry - could not retrieve quote");
             get_entry(token, callback, error);
         });
-    }, function() {
-        console.log("retry - bad friend 1");
+    }, function () {
+        console.log("retry - could not retrieve friends");
         get_entry(token, callback, error);
     });
 };

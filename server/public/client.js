@@ -57,21 +57,21 @@ fetchQuestion = function() {
       $(".front h3", person1div).html(data.friend1.first_name);
       $(".front h3", person2div).html(data.friend2.first_name);
 
-      $(".front .image_128", person1div).html(fbimg(data.friend1.id));
-      $(".front .image_128", person2div).html(fbimg(data.friend2.id));
+      $(".front .image_128", person1div).html(fbimg(data.friend1.uid));
+      $(".front .image_128", person2div).html(fbimg(data.friend2.uid));
 
-      $(person1div).addClass(data.quote.from.id == data.friend1.id ? 'yes' : 'no');
-      $(person2div).addClass(data.quote.from.id == data.friend2.id ? 'yes' : 'no');
+      $(person1div).addClass(data.quote.uid == data.friend1.uid ? 'yes' : 'no');
+      $(person2div).addClass(data.quote.dui == data.friend2.uid ? 'yes' : 'no');
 
-      $(".back h3", person1div).html(header(data.quote.from.id == data.friend1.id));
-      $(".back h3", person2div).html(header(data.quote.from.id == data.friend2.id));
+      $(".back h3", person1div).html(header(data.quote.uid == data.friend1.uid));
+      $(".back h3", person2div).html(header(data.quote.uid == data.friend2.uid));
 
       $(".back p.first", person1div).html(function(){
-        if (data.quote.from.id == data.friend1.id) return data.friend1.first_name + " said that!";
+        if (data.quote.uid == data.friend1.uid) return data.friend1.first_name + " said that!";
         else return data.friend1.first_name + " didn't say that.";
       });
       $(".back p.first", person2div).html(function(){
-        if (data.quote.from.id == data.friend2.id) return data.friend2.first_name + " said that!";
+        if (data.quote.uid == data.friend2.uid) return data.friend2.first_name + " said that!";
         else return data.friend2.first_name + " didn't say that.";
       });
 
