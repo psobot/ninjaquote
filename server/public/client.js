@@ -195,7 +195,11 @@ window.fbAsyncInit = function() {
             if (!(person_id in people)) people[person_id] = {'t': 0, 'f': 0};
             people[person_id][key.split('-')[1]] = parseInt(response[key]);
           }
-          window.log(people);
+          
+          ul = $('#stats ul')  
+          for (person_id in people){
+            ul.append('<li>'+fbimg(person_id)+'</li>');
+          }
 
           $("#stats").show();
         });
