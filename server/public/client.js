@@ -1,6 +1,9 @@
 NEW_TIMER = 2000;
 REVEAL_TIMER = 1000;
 
+total_counter = 0;
+right_counter = 0;
+
 window.log = function(){
   log.history = log.history || [];   // store logs to an array for reference
   log.history.push(arguments);
@@ -118,6 +121,10 @@ window.fbAsyncInit = function() {
 
   $(".person").click(function(e){
     e.preventDefault();
+    if (!$(this).hasClass('clicked')){
+      totalCounter++;
+      if ($(this).hasClass('yes')) rightCounter++;
+    }
     $(this).addClass('clicked');
     if ($(this).hasClass('no')) {
       setTimeout(function() {
