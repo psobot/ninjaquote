@@ -21,6 +21,23 @@ a:hover {
   text-decoration: underline;
 }
 
+.start {
+  padding: 20px;
+  margin: 0 auto;
+  font-size: 32pt;
+  font-family: 'Rancho', cursive;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+  background: #eee;
+  border-bottom: none;
+  display: none;
+}
+
+.start:hover {
+  background: #efefef;
+}
+
 .image_128 {
   width: 128px;
   height: 128px;
@@ -35,14 +52,30 @@ a:hover {
 .fb-login-button {
   margin: 20px;
   text-align: center;
+  display: none;
 }
 
 #header {
+  padding-top: 150px;
 }
 
-#loading_spinner {
-  padding-left: 60px;
+#loading {
+  width: 450px;
   display: none;
+  margin: 0 auto;
+  padding-top: 150px;
+}
+
+#loading p {
+  padding: 0px 90px;
+  margin-top: 5px;
+}
+
+#spinner {
+  background: url('img/ajax-loader.gif') no-repeat center center;
+  width: 32px;
+  height: 32px;
+  float: left;
 }
 
 #question {
@@ -148,6 +181,7 @@ a:hover {
   border: 1px solid #ccc;
   box-shadow: 4px 4px 8px #ccc;
   background: white;
+  width: 148px;
 }
 
 .person.yes .back {
@@ -177,6 +211,7 @@ a:hover {
   left: 0;
   padding: 10px;
   height: 183px;
+  width: 128px;
 
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
@@ -196,6 +231,9 @@ a:hover {
 #wrapper, #footer {
   margin: 0 auto;
   width: 700px;
+}
+#wrapper {
+  min-height: 500px;
 }
 
 #footer {

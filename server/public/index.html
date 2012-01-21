@@ -19,9 +19,12 @@
 
       </h2>
     </div>
-    <div class='fb-login-button'>Login with Facebook</div>
-    <div id="loading_spinner">
-      Loading a question...
+    
+    <div class='fb-login-button' data-scope="read_friendlists,friends_status">Login with Facebook</div>
+    <a href='#' class='start'>let's find out</a>
+    <div id="loading">
+      <div id="spinner"></div>
+      <p>Loading a question from Facebook...</p>
     </div>
     <div id="question">
       <h1 id="whosaid">who said:</h1>
@@ -29,9 +32,7 @@
         <div id="quote">
           <div class="quotes left">&ldquo;</div>
           <div class="quotes right">&rdquo;</div>
-          <p>
-            I smell. like poo because I don't shower.
-          </p>
+          <p></p>
         </div>
       </div>
       <div id="people_wrapper">
@@ -50,14 +51,14 @@
           </div>
         </a>
 
-        <a class="person yes" href="#" >
+        <a class="person" href="#" >
           <div class='front'>
             <div class='image_128'>
             </div>
-            <h3>Justin</h3>
+            <h3></h3>
           </div>
           <div class='back'>
-            <h3>Yup!</h3>
+            <h3></h3>
             <p class="first">
             </p>
             <p class="wrong">
