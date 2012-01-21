@@ -221,6 +221,7 @@ a:hover {
 }
 
 .person .back p.wrong {
+  padding-top: 50px;
   display: none;
 }
 
