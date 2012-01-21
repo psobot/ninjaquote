@@ -164,6 +164,8 @@ a:hover {
   margin-left: 10px;
   -webkit-transform: rotate(7deg);
   -webkit-transition: 0.25s linear;
+  -moz-transform: rotate(7deg);
+  -moz-transition: 0.25s linear;
   color: #000;
   height: 203px;
   border: none;
@@ -177,22 +179,28 @@ a:hover {
 .person:first-child {
   margin-left: 0;
   -webkit-transform: rotate(-7deg);
+  -moz-transform: rotate(-7deg);
 }
 
 .person:hover {
   text-decoration: none;
   -webkit-transform: rotate(0);
+  -moz-transform: rotate(0);
   cursor: pointer;
 }
 
 .person .back, .person .front {
   -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
 }
 
 .person .back {
   -webkit-transform: rotateY(-180deg);
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
+  -moz-transform: rotateY(-180deg);
+  -moz-transform-style: preserve-3d;
+  -moz-backface-visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
@@ -236,6 +244,9 @@ a:hover {
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   -webkit-transform: rotateY(0deg);
+  -moz-transform-style: preserve-3d;
+  -moz-backface-visibility: hidden;
+  -moz-transform: rotateY(0deg);
   border: 1px solid #ccc;
   box-shadow: 4px 4px 8px #ccc;
   background: white;
@@ -243,9 +254,11 @@ a:hover {
 
 .person.clicked .front {
   -webkit-transform: rotateY(-180deg);
+  -moz-transform: rotateY(-180deg);
 }
 .person.clicked .back {
   -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
 }
 
 #wrapper, #footer {
