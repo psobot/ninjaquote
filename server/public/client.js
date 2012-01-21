@@ -198,7 +198,7 @@ window.fbAsyncInit = function() {
             var person_id = key.split('-')[0];
             if (!(person_id in people)) people[person_id] = {'t': 0, 'f': 0};
             people[person_id][key.split('-')[1]] = parseInt(response[key]);
-            sorted_people.push(person_id);
+            if (sorted_people.indexOf(person_id) == -1) sorted_people.push(person_id);
           }
           
           sorted_people = sorted_people.sort(function(a, b){
