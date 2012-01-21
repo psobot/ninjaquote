@@ -26,7 +26,7 @@ updateCounters = function(){
   $('#score .right').html(right_counter);
   $('#score .total').html(total_counter);
   $('#score .percent').html(Math.round((right_counter/total_counter)*100));
-  $('#score a').attr('href','/#'+FB.getUserID());
+  $('#score a').attr('href','/?#'+FB.getUserID());
 }
 
 reinit = function() {
@@ -172,11 +172,6 @@ loadFB = function() {
     }
   });
 
-  $('#score a').click(function(e){
-    e.preventDefault();
-    window.location = "/?#"+FB.getUserID();
-    window.location.reload();
-  });
 }
 
 window.fbAsyncInit = function() {
