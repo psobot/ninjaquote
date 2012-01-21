@@ -95,6 +95,13 @@ a:hover {
   background: rgba(255, 0, 0, 0.1);
 }
 
+#stats ul li .bar .score_text {
+  position: absolute;
+  width: 550px;
+  text-align: center;
+  margin-top: 15px;
+}
+
 #stats ul li .bar .right {
   background: #aaffa4;
   height: 50px;
