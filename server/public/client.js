@@ -204,8 +204,10 @@ window.fbAsyncInit = function() {
             var a_percent_right = (people[a].t/total)*100;
             var b_total = people[b].t + people[b].f;
             var b_percent_right = (people[b].t/total)*100;
+            window.log(a_percent_right, b_percent_right);
             return a_percent_right - b_percent_right;
           });
+          window.log(sorted_people);
           
           ul = $('#stats ul')  
           for (var i = 0; i < sorted_people.length; i++){
