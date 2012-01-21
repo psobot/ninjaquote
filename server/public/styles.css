@@ -63,6 +63,57 @@ a:hover {
   display: none;
 }
 
+#stats .top {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 50px;
+}
+
+#stats h2 {
+  padding: 20px 40px 0 180px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+#stats img {
+  float: left;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+#stats ul li {
+  height: 50px;
+  margin-bottom: 10px;
+  list-style-type: none;
+  display: block;
+}
+
+
+#stats ul li .bar {
+  height: 50px;
+  width: 550px;
+  margin-left: 60px;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+#stats ul li .bar .score_text {
+  position: absolute;
+  width: 550px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+#stats ul li .bar .right {
+  background: #aaffa4;
+  height: 50px;
+}
+
+#stats ul li img {
+  float: left;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+}
+
 #loading {
   width: 450px;
   display: none;

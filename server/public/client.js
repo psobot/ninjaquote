@@ -12,8 +12,9 @@ window.log = function(){
   }
 };
 
-fbimg = function(id) {
-  return "<img src='http://graph.facebook.com/" + id + "/picture?type=large' />";
+fbimg = function(id, type) {
+  if (typeof type === "undefined") type = "large";
+  return "<img src='http://graph.facebook.com/" + id + "/picture?type="+type+"' />";
 }
 
 header = function(bool) {
@@ -183,7 +184,34 @@ window.fbAsyncInit = function() {
         //  Let's grab the person's open graph stuff
         $("#header").hide();
         $.getJSON("http://graph.facebook.com/"+user_uid, function(userdata){
-          $("#stats h2").html('How well does '+userdata.first_name+" know their friends?");
+          $("#stats .top h2").html(
+            'How well does '+userdata.first_name+" know "+(userdata.gender=='female'?'her':'his')+" friends?"
+          );
+          $("#stats .top img").attr('src', "http://graph.facebook.com/"+user_uid+"/picture?type=large");
+          
+
+          var people = {};
+          for (var key in response){
+            var person_id = key.split('-')[0];
+            if (!(person_id in people)) people[person_id] = {'t': 0, 'f': 0};
+            people[person_id][key.split('-')[1]] = parseInt(response[key]);
+          }
+          
+          ul = $('#stats ul')  
+          for (person_id in people){
+            var total = people[person_id].t + people[person_id].f;
+            var percent_right = (people[person_id].t/total)*100;
+            ul.append(
+              '<li>'+
+              fbimg(person_id, 'square')+
+              '<div class="bar">'+
+              '<div class="score_text">'+
+                people[person_id].t+'/'+total+" ("+Math.round(percent_right)+"%)</div>"+
+                '<div class="right" style="width:'+percent_right+'%">'+
+                '</div>'+
+              '</div></li>');
+          }
+
           $("#stats").show();
         });
       }
