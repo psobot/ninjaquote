@@ -49,6 +49,12 @@ getNewQuestion = function() {
   fetchQuestion();
 }
 
+fetchScores = function(user_uid, callback) {
+  $.getJSON('scores', {uid: user_uid}, function(data){
+    console.log(data);
+  });
+}
+
 fetchQuestion = function() {
   $.getJSON('get_entry', {token : FB.getAccessToken() }, function(data) {
     window.log(data);
@@ -100,68 +106,73 @@ fetchQuestion = function() {
 }
 
 window.fbAsyncInit = function() {
-  FB.init({
-      appId : '330392253659950',
-      status : true, 
-      cookie : true,
-      xfbml : true,
-      oauth : true,
-  });
-
-  FB.getLoginStatus(function(response){
-    if(response.status === 'connected'){
-      $('.fb-login-button').hide();
-      $('.start').css('display', 'block');
-      $(".start").click(function(e){
-        $('.start').slideUp();
-        e.preventDefault();
-        getQuestion();
-      });
-    } else $('.fb-login-button').fadeIn();
-  });
-
-  FB.Event.subscribe('auth.login', function(response) {
-    window.log(response);
-    if (response.authResponse) {
-      $('.fb-login-button').fadeOut();
-      getQuestion();
-    } else {
-      window.log('User cancelled login or did not fully authorize.');
-    }
-  });
-
-  $(".person").click(function(e){
-    e.preventDefault();
-    if (!$(this).hasClass('clicked')){
-      total_counter++;
-      if ($(this).hasClass('yes')) right_counter++;
-      updateCounters();
-    }
-    $.getJSON('response', {
-      token:    FB.getAccessToken(),
-      my_uid:    FB.getUserID(),
-      post_uid:   $(this).data('uid'),
-      correct:  $(this).hasClass('yes')
+  if (window.location.hash == ""){
+    FB.init({
+        appId : '330392253659950',
+        status : true, 
+        cookie : true,
+        xfbml : true,
+        oauth : true,
     });
-    $(this).addClass('clicked');
-    if ($(this).hasClass('no')) {
-      setTimeout(function() {
-        if (!$('.person.yes.clicked').length) {
-          $('.person.yes .back h3').hide();
-          $('.person.yes .back p').hide();
-          $('.person.yes .back p.wrong').show();
-          $('.person.yes').addClass('clicked');
-          setTimeout(function() {
-            getNewQuestion();
-          }, NEW_TIMER);
-        }
-      }, REVEAL_TIMER);
-    } else {
-      setTimeout(function() {
-        getNewQuestion();
-      }, NEW_TIMER);
-    }
-  });
+
+    FB.getLoginStatus(function(response){
+      if(response.status === 'connected'){
+        $('.fb-login-button').hide();
+        $('.start').css('display', 'block');
+        $(".start").click(function(e){
+          $('.start').slideUp();
+          e.preventDefault();
+          getQuestion();
+        });
+      } else $('.fb-login-button').fadeIn();
+    });
+
+    FB.Event.subscribe('auth.login', function(response) {
+      window.log(response);
+      if (response.authResponse) {
+        $('.fb-login-button').fadeOut();
+        getQuestion();
+      } else {
+        window.log('User cancelled login or did not fully authorize.');
+      }
+    });
+
+    $(".person").click(function(e){
+      e.preventDefault();
+      if (!$(this).hasClass('clicked')){
+        total_counter++;
+        if ($(this).hasClass('yes')) right_counter++;
+        updateCounters();
+      }
+      $.getJSON('response', {
+        token:    FB.getAccessToken(),
+        my_uid:    FB.getUserID(),
+        post_uid:   $(this).data('uid'),
+        correct:  $(this).hasClass('yes')
+      });
+      $(this).addClass('clicked');
+      if ($(this).hasClass('no')) {
+        setTimeout(function() {
+          if (!$('.person.yes.clicked').length) {
+            $('.person.yes .back h3').hide();
+            $('.person.yes .back p').hide();
+            $('.person.yes .back p.wrong').show();
+            $('.person.yes').addClass('clicked');
+            setTimeout(function() {
+              getNewQuestion();
+            }, NEW_TIMER);
+          }
+        }, REVEAL_TIMER);
+      } else {
+        setTimeout(function() {
+          getNewQuestion();
+        }, NEW_TIMER);
+      }
+    });
+  } else {
+    user_uid = parseInt(window.location.hash.substr(1));
+    fetchScores();
+  }
   if (!$.browser.webkit) $('body').addClass('noflip');
 };
 (function(d){
