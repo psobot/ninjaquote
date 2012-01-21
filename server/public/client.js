@@ -12,8 +12,9 @@ window.log = function(){
   }
 };
 
-fbimg = function(id) {
-  return "<img src='http://graph.facebook.com/" + id + "/picture?type=large' />";
+fbimg = function(id, type) {
+  if (typeof type === "undefined") type = "large";
+  return "<img src='http://graph.facebook.com/" + id + "/picture?type="+type+"' />";
 }
 
 header = function(bool) {
@@ -198,7 +199,7 @@ window.fbAsyncInit = function() {
           
           ul = $('#stats ul')  
           for (person_id in people){
-            ul.append('<li>'+fbimg(person_id)+'</li>');
+            ul.append('<li>'+fbimg(person_id, 'square')+'</li>');
           }
 
           $("#stats").show();
