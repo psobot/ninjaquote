@@ -176,6 +176,7 @@ window.fbAsyncInit = function() {
   else {
     user_uid = parseInt(window.location.hash.substr(1));
     fetchScores(user_uid, function(response){
+      window.log(response.length);
       if (!response.length) loadFB();
       else {
         //  HACK HACK HACK
