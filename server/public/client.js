@@ -201,9 +201,9 @@ window.fbAsyncInit = function() {
           
           sorted_people = sorted_people.sort(function(a, b){
             var a_total = people[a].t + people[a].f;
-            var a_percent_right = (people[a].t/total)*100;
+            var a_percent_right = (people[a].t/a_total)*100;
             var b_total = people[b].t + people[b].f;
-            var b_percent_right = (people[b].t/total)*100;
+            var b_percent_right = (people[b].t/b_total)*100;
             window.log(a, b, a_percent_right, b_percent_right);
             return a_percent_right - b_percent_right;
           });
