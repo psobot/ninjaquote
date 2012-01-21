@@ -206,7 +206,8 @@ window.fbAsyncInit = function() {
               fbimg(person_id, 'square')+
               '<div class="bar">'+
                 '<div class="right" style="width:'+percent_right+'%">'+
-              '</div>'+
+                people[person_id].t+'/'+total+" ("+Math.round(percent_right)+"%)"+
+                '</div>'+
               '</div></li>');
           }
 
