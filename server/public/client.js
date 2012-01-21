@@ -54,6 +54,9 @@ fetchQuestion = function() {
     $("#question").fadeOut(function(){
       reinit();
 
+      $(person1div).data('uid', data.friend1.uid);
+      $(person2div).data('uid', data.friend2.uid);
+
       $(".front h3", person1div).html(data.friend1.first_name);
       $(".front h3", person2div).html(data.friend2.first_name);
 
@@ -128,7 +131,8 @@ window.fbAsyncInit = function() {
     }
     $.getJSON('response', {
       token:    FB.getAccessToken(),
-      myUID:    FB.getUserID(),
+      my_uid:    FB.getUserID(),
+      post_uid:   $(this).data('uid'),
       correct:  $(this).hasClass('yes')
     });
     $(this).addClass('clicked');
