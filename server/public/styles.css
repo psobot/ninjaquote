@@ -59,6 +59,10 @@ a:hover {
   padding-top: 150px;
 }
 
+#stats {
+  display: none;
+}
+
 #loading {
   width: 450px;
   display: none;

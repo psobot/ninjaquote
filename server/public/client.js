@@ -174,11 +174,17 @@ loadFB = function() {
 window.fbAsyncInit = function() {
   if (window.location.hash == "") loadFB();
   else {
-    fetchScores(parseInt(window.location.hash.substr(1)), function(response){
+    user_uid = parseInt(window.location.hash.substr(1));
+    fetchScores(user_uid, function(response){
       if (!response.length) loadFB();
       else {
         //  HACK HACK HACK
         //  THIS IS OUR SCORES PAGE
+        //  Let's grab the person's open graph stuff
+        $.getJSON("http://graph.facebook.com/"+user_uid, function(userdata){
+          $("#stats h2").html('How well does '+userdata.first_name+" know their friends?");
+
+        });
       }
     });
   }
