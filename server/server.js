@@ -18,6 +18,8 @@ var graph_api = function(path, callback) {
         method: 'GET'
     };
     
+    console.log(options);
+    
     var req = https.request(options, function(res) {
         var data = '';
         
@@ -89,6 +91,7 @@ var get_entry = function(token, callback) {
             get_entry(token, callback);
         }
         else {
+            console.log("log1");
             var friend1 = person;
             get_random_friend(token, 0.5, 0, function (person) {
                 if ((person == null) || (person.id == friend1.id)) {
@@ -96,6 +99,7 @@ var get_entry = function(token, callback) {
                     get_entry(token, callback);
                 }
                 else {
+                    console.log("log2");
                     var friend2 = person;
                     var chosen_one = (Math.floor(Math.random() * 2) == 0) ? friend1 : friend2;
                     
