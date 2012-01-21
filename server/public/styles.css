@@ -78,7 +78,6 @@ a:hover {
 
 
 #next_spinner_container {
-  background: #ccc;
   height: 32px;
   padding: 16px;
   width: 240px;
@@ -86,6 +85,7 @@ a:hover {
   position: absolute;
   top: 0;
   left: 210px;
+  display: none;
 }
 
 .spinner {
