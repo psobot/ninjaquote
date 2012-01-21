@@ -63,8 +63,14 @@ a:hover {
   display: none;
 }
 
+#stats .top {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+
 #stats h2 {
-  padding: 40px 40px 40px 180px;
+  padding: 20px 40px 0 180px;
+  margin-bottom: 0;
   text-align: left;
 }
 
