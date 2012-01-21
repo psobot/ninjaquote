@@ -191,10 +191,9 @@ window.fbAsyncInit = function() {
 
           var people = {};
           for (var key in response){
-            var obj = response[key]
-            var person_id = obj.split('-')[0];
+            var person_id = key.split('-')[0];
             if (!(person_id in people)) people[person_id] = {'t': 0, 'f': 0};
-            people[person_id][obj.split('-')[1]]++;
+            people[person_id][key.split('-')[1]] = parseInt(response[key]);
           }
           window.log(people);
 
