@@ -43,41 +43,42 @@ fetchQuestion = function() {
     person1div = $(people[0]);
     person2div = $(people[1]);
 
-    $("#question").slideUp();
-    reinit();
+    $("#question").slideUp(function(){
+      reinit();
 
-    $(".front h3", person1div).html(data.friend1.first_name);
-    $(".front h3", person2div).html(data.friend2.first_name);
+      $(".front h3", person1div).html(data.friend1.first_name);
+      $(".front h3", person2div).html(data.friend2.first_name);
 
-    $(".front .image_128", person1div).html(fbimg(data.friend1.id));
-    $(".front .image_128", person2div).html(fbimg(data.friend2.id));
+      $(".front .image_128", person1div).html(fbimg(data.friend1.id));
+      $(".front .image_128", person2div).html(fbimg(data.friend2.id));
 
-    $(person1div).addClass(data.quote.from.id == data.friend1.id ? 'yes' : 'no');
-    $(person2div).addClass(data.quote.from.id == data.friend2.id ? 'yes' : 'no');
+      $(person1div).addClass(data.quote.from.id == data.friend1.id ? 'yes' : 'no');
+      $(person2div).addClass(data.quote.from.id == data.friend2.id ? 'yes' : 'no');
 
-    $(".back h3", person1div).html(header(data.quote.from.id == data.friend1.id));
-    $(".back h3", person2div).html(header(data.quote.from.id == data.friend2.id));
+      $(".back h3", person1div).html(header(data.quote.from.id == data.friend1.id));
+      $(".back h3", person2div).html(header(data.quote.from.id == data.friend2.id));
 
-    $(".back p.first", person1div).html(function(){
-      if (data.quote.from.id == data.friend1.id) return data.friend1.first_name + " said that!";
-      else return data.friend1.first_name + " didn't say that.";
+      $(".back p.first", person1div).html(function(){
+        if (data.quote.from.id == data.friend1.id) return data.friend1.first_name + " said that!";
+        else return data.friend1.first_name + " didn't say that.";
+      });
+      $(".back p.first", person2div).html(function(){
+        if (data.quote.from.id == data.friend2.id) return data.friend2.first_name + " said that!";
+        else return data.friend2.first_name + " didn't say that.";
+      });
+
+      $(".back p.wrong", person1div).html(function(){
+        return "It was " + data.friend1.first_name + "!";
+      });
+      $(".back p.wrong", person2div).html(function(){
+        return "It was " + data.friend2.first_name + "!";
+      });
+
+      $('#quote p').html(data.quote.message);
+
+      $('#loading, #next_spinner_container').slideUp();
+      $('#question').slideDown();    
     });
-    $(".back p.first", person2div).html(function(){
-      if (data.quote.from.id == data.friend2.id) return data.friend2.first_name + " said that!";
-      else return data.friend2.first_name + " didn't say that.";
-    });
-
-    $(".back p.wrong", person1div).html(function(){
-      return "It was " + data.friend1.first_name + "!";
-    });
-    $(".back p.wrong", person2div).html(function(){
-      return "It was " + data.friend2.first_name + "!";
-    });
-
-    $('#quote p').html(data.quote.message);
-
-    $('#loading, #next_spinner_container').slideUp();
-    $('#question').slideDown();
   });
 }
 
