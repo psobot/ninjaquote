@@ -176,15 +176,15 @@ window.fbAsyncInit = function() {
   else {
     user_uid = parseInt(window.location.hash.substr(1));
     fetchScores(user_uid, function(response){
-      window.log(Object.keys(response).length);
       if (!Object.keys(response).length) loadFB();
       else {
         //  HACK HACK HACK
         //  THIS IS OUR SCORES PAGE
         //  Let's grab the person's open graph stuff
+        $("#header").hide();
         $.getJSON("http://graph.facebook.com/"+user_uid, function(userdata){
           $("#stats h2").html('How well does '+userdata.first_name+" know their friends?");
-
+          $("#stats").show();
         });
       }
     });
