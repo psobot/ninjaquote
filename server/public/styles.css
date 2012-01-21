@@ -44,7 +44,7 @@ a:hover {
   overflow: hidden;
 }
 
-.image_128 {
+.image_128 img {
   min-height: 128px;
   min-width: 128px;
 }
