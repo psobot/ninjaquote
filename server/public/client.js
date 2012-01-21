@@ -1,4 +1,4 @@
-NEW_TIMER = 2000;
+NEW_TIMER = 100;
 REVEAL_TIMER = 1000;
 
 total_counter = 0;
