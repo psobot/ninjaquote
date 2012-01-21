@@ -8,13 +8,30 @@ header = function(bool) {
   return bool ? "Yup!" : "Nope!";
 }
 
-getQuestion = function() {
-  $('#header').slideUp();
-  $('#question').slideUp();
+reinit = function() {
   $('.yes').removeClass('yes');
   $('.no').removeClass('no');
   $('.clicked').removeClass('clicked');
+}
+
+//#next_spinner_container
+getQuestion = function() {
+  $('#header').slideUp();
+  $('#question').slideUp();
+  reinit();
   $("#loading").slideDown();
+  fetchQuestion();
+}
+
+getNewQuestion = function() {
+  $('#header').slideUp();
+  $('#question').slideUp();
+  reinit();
+  $("#next_spinner_container").slideDown();
+  fetchQuestion();
+}
+
+fetchQuestion = function() {
   $.getJSON('get_entry', {token : FB.getAccessToken() }, function(data) {
     console.log(data);
 
@@ -27,8 +44,6 @@ getQuestion = function() {
 
     $(".front .image_128", person1div).html(fbimg(data.friend1.id));
     $(".front .image_128", person2div).html(fbimg(data.friend2.id));
-
-    $(".front .image_128", person1div).html(fbimg(data.friend1.id));
 
     $(person1div).addClass(data.quote.from.id == data.friend1.id ? 'yes' : 'no');
     $(person2div).addClass(data.quote.from.id == data.friend2.id ? 'yes' : 'no');
@@ -54,7 +69,7 @@ getQuestion = function() {
 
     $('#quote p').html(data.quote.message);
 
-    $('#loading').slideUp();
+    $('#loading, #next_spinner_container').slideUp();
     $('#question').slideDown();
   });
 }
@@ -83,6 +98,7 @@ window.fbAsyncInit = function() {
   FB.Event.subscribe('auth.login', function(response) {
     console.log(response);
     if (response.authResponse) {
+      $('.fb-login-button').fadeOut();
       getQuestion();
     } else {
       console.log('User cancelled login or did not fully authorize.');
@@ -100,13 +116,13 @@ window.fbAsyncInit = function() {
           $('.person.yes .back p.wrong').show();
           $('.person.yes').addClass('clicked');
           setTimeout(function() {
-            getQuestion();
+            getNewQuestion();
           }, NEW_TIMER);
         }
       }, 1000);
     } else {
       setTimeout(function() {
-        getQuestion();
+        getNewQuestion();
       }, NEW_TIMER);
     }
   });
