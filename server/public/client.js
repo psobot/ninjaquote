@@ -44,6 +44,7 @@ fetchQuestion = function() {
     person1div = $(people[0]);
     person2div = $(people[1]);
 
+    $('#loading, #next_spinner_container').slideUp();
     $("#question").fadeOut(function(){
       reinit();
 
@@ -77,7 +78,6 @@ fetchQuestion = function() {
 
       $('#quote p').html(data.quote.message);
 
-      $('#loading, #next_spinner_container').slideUp();
       $('#question').fadeIn();    
     });
   });
