@@ -213,8 +213,8 @@ window.fbAsyncInit = function() {
             var total = people[person_id].t + people[person_id].f;
             var percent_right = (people[person_id].t/total)*100;
             ul.append(
-              '<li>'+
-              fbimg(person_id, 'square')+
+              '<li><a href="http://facebook.com/'+person_id+'">'+
+              fbimg(person_id, 'square')+"</a>"
               '<div class="bar">'+
               '<div class="score_text">'+
                 people[person_id].t+'/'+total+" ("+Math.round(percent_right)+"%)</div>"+
