@@ -191,14 +191,24 @@ window.fbAsyncInit = function() {
           
 
           var people = {};
+          var sorted_people = [];
           for (var key in response){
             var person_id = key.split('-')[0];
             if (!(person_id in people)) people[person_id] = {'t': 0, 'f': 0};
             people[person_id][key.split('-')[1]] = parseInt(response[key]);
+            sorted_people.push(person_id);
           }
           
+          sorted_people.sort(function(a, b){
+            var a_total = people[a].t + people[a].f;
+            var a_percent_right = (people[a].t/total)*100;
+            var b_total = people[b].t + people[b].f;
+            var b_percent_right = (people[b].t/total)*100;
+            return a_percent_right - b_percent_right;
+          });
+
           ul = $('#stats ul')  
-          for (person_id in people){
+          for (person_id in sorted_people){
             var total = people[person_id].t + people[person_id].f;
             var percent_right = (people[person_id].t/total)*100;
             ul.append(
