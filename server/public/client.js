@@ -183,7 +183,10 @@ window.fbAsyncInit = function() {
         //  Let's grab the person's open graph stuff
         $("#header").hide();
         $.getJSON("http://graph.facebook.com/"+user_uid, function(userdata){
-          $("#stats h2").html('How well does '+userdata.first_name+" know their friends?");
+          $("#stats .top h3").html(
+            'How well does '+userdata.first_name+" know "+(userdata.gender=='female'?'her':'his')+" friends?"
+          );
+          $("#stats .top img").attr('src', "http://graph.facebook.com/"+user_uid+"/picture?format=square");
           $("#stats").show();
         });
       }
