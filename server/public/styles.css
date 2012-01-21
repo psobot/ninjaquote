@@ -116,7 +116,7 @@ a:hover {
 #quote {
   width: auto;
   margin: 0 auto;
-  background: rgba(0, 0, 255, 0.39);
+  background: rgba(0, 0, 255, 0.09);
   min-height: 50px;
   padding-bottom: 60px;
   position: relative;
