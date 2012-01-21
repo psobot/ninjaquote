@@ -22,11 +22,13 @@ a:hover {
 }
 
 #whosaid {
-  text-align: center;
+  font-size: 66pt;
+  text-align: left;
+  margin-bottom: 0;
 }
 
 #quote_wrapper {
-  margin: 80px auto;
+  margin: 0 auto 80px;
   text-align: center;
 }
 
@@ -40,7 +42,7 @@ a:hover {
   height: 100%;
 }
 
-p {
+#quote p {
   padding: 20px 20px 60px 20px;
   font-size: 30pt;
   font-family: 'Rancho', cursive;
@@ -73,16 +75,17 @@ p {
 }
 
 .person {
-  width: 128px;
+  width: 148px;
   text-align: center;
   font-size: 20pt;
   font-family: 'Rancho';
-  padding: 10px;
-  border: 1px solid #ccc;
   float: left;
   margin-left: 10px;
-  background: white;
   -webkit-transform: rotate(7deg);
+  -webkit-transition: 0.25s linear;
+  color: #000;
+  height: 203px;
+  border: none;
 }
 
 .person h3 {
@@ -95,6 +98,72 @@ p {
   -webkit-transform: rotate(-7deg);
 }
 
+.person:hover {
+  text-decoration: none;
+  -webkit-transform: rotate(0);
+  cursor: pointer;
+}
+
+.person .back, .person .front {
+  -webkit-transition: all 0.4s ease-in-out;
+}
+
+.person .back {
+  -webkit-transform: rotateY(-180deg);
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 203px;
+  border: 1px solid #ccc;
+  box-shadow: 4px 4px 8px #ccc;
+  background: white;
+}
+
+.person.yes .back {
+  box-shadow: 0 0 15px #cfc;
+}
+.person.no .back {
+  box-shadow: 0 0 15px #fcc;
+}
+
+
+.person .back h3 {
+  margin-top: 10px;
+}
+
+.person .back p {
+  padding: 15px;
+  margin: 0;
+}
+
+.person .back p.wrong {
+  display: none;
+}
+
+.person .front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  height: 183px;
+
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: rotateY(0deg);
+  border: 1px solid #ccc;
+  box-shadow: 4px 4px 8px #ccc;
+  background: white;
+}
+
+.person.clicked .front {
+  -webkit-transform: rotateY(-180deg);
+}
+.person.clicked .back {
+  -webkit-transform: rotateY(0deg);
+}
+
 #wrapper, #footer {
   margin: 0 auto;
   width: 700px;
@@ -103,5 +172,5 @@ p {
 #footer {
   font-size: 10pt;
   text-align: center;
-  margin: 0 auto 30pt;
+  margin: 40pt auto 30pt;
 }
