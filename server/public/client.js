@@ -49,6 +49,13 @@ getNewQuestion = function() {
   fetchQuestion();
 }
 
+fetchScores = function(user_uid, callback) {
+  $.getJSON('scores', {my_uid: user_uid}, function(data){
+    window.log(data);
+    callback(data);
+  });
+}
+
 fetchQuestion = function() {
   $.getJSON('get_entry', {token : FB.getAccessToken() }, function(data) {
     window.log(data);
@@ -99,7 +106,7 @@ fetchQuestion = function() {
   });
 }
 
-window.fbAsyncInit = function() {
+loadFB = function() {
   FB.init({
       appId : '330392253659950',
       status : true, 
@@ -162,6 +169,19 @@ window.fbAsyncInit = function() {
       }, NEW_TIMER);
     }
   });
+}
+
+window.fbAsyncInit = function() {
+  if (window.location.hash == "") loadFB();
+  else {
+    fetchScores(parseInt(window.location.hash.substr(1)), function(response){
+      if (!response.length) loadFB();
+      else {
+        //  HACK HACK HACK
+        //  THIS IS OUR SCORES PAGE
+      }
+    });
+  }
   if (!$.browser.webkit) $('body').addClass('noflip');
 };
 (function(d){
