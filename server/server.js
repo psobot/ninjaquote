@@ -87,7 +87,7 @@ var get_entry = function(token, callback, error) {
 };
 
 var correct_reponse = function(my_uid, post_uid, correct, callback, error) {
-    var key = (correct == true) ? post_uid+"-t" : post_uid+"-f";
+    var key = (correct == 'true') ? post_uid+"-t" : post_uid+"-f";
     db.hget("user:" + my_uid, key, function (err, saved_obj) {
         if (saved_obj == null) {
             db.hset("user:" + my_uid, key, 1);
@@ -107,6 +107,13 @@ var correct_reponse = function(my_uid, post_uid, correct, callback, error) {
                 callback(parseInt(saved_obj_t), parseInt(saved_obj_f));
             });
         });
+    });
+};
+
+var reponses = function(my_uid, callback, error) {
+    db.hgetall("user:" + my_uid, function (err, saved_obj) {
+        console.dir(saved_obj);
+        callback(saved_obj);
     });
 };
 
@@ -130,6 +137,16 @@ app.get('/response', function(req, res) {
             t : t_count,
             f : f_count
         });
+    }, function () {
+        res.json({
+            error : "An error occurred"
+        });
+    });
+});
+
+app.get('/scores', function(req, res) {
+    reponses(req.query.my_uid, function (results) {
+        res.json(results);
     }, function () {
         res.json({
             error : "An error occurred"
