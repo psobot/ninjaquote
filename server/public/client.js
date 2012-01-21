@@ -26,7 +26,7 @@ updateCounters = function(){
   $('#score .right').html(right_counter);
   $('#score .total').html(total_counter);
   $('#score .percent').html(Math.round((right_counter/total_counter)*100));
-  $('#score a').href('/#'+FB.getUserID());
+  $('#score a').attr('href','/#'+FB.getUserID());
 }
 
 reinit = function() {
