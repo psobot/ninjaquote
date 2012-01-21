@@ -209,6 +209,7 @@ a:hover {
   box-shadow: 4px 4px 8px #ccc;
   background: white;
   width: 148px;
+  display: none;
 }
 
 .person.yes .back {
@@ -257,6 +258,7 @@ a:hover {
   -moz-transform: rotateY(-180deg);
 }
 .person.clicked .back {
+  display: block;
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
 }
