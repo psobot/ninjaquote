@@ -90,7 +90,13 @@ a:hover {
 
 #stats ul li .bar {
   height: 50px;
-  width: 100%;
+  width: 550px;
+  margin-left: 60px;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+#stats ul li .bar .right {
+  background: #aaffa4;
 }
 
 #stats ul li img {
