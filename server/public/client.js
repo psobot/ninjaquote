@@ -199,14 +199,14 @@ window.fbAsyncInit = function() {
             sorted_people.push(person_id);
           }
           
-          sorted_people.sort(function(a, b){
+          sorted_people = sorted_people.sort(function(a, b){
             var a_total = people[a].t + people[a].f;
             var a_percent_right = (people[a].t/total)*100;
             var b_total = people[b].t + people[b].f;
             var b_percent_right = (people[b].t/total)*100;
             return a_percent_right - b_percent_right;
           });
-
+          
           ul = $('#stats ul')  
           for (var i = 0; i < sorted_people.length; i++){
             person_id = sorted_people[i];
