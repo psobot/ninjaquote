@@ -64,13 +64,14 @@ a:hover {
 }
 
 #stats h2 {
-  margin: 40px;
+  padding: 40px 40px 40px 180px;
   text-align: left;
 }
 
 #stats img {
   float: left;
-  max-height: 300px;
+  max-width: 150px;
+  max-height: 150px;
 }
 
 #loading {
