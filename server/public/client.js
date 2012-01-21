@@ -61,7 +61,7 @@ fetchQuestion = function() {
       $(".front .image_128", person2div).html(fbimg(data.friend2.uid));
 
       $(person1div).addClass(data.quote.uid == data.friend1.uid ? 'yes' : 'no');
-      $(person2div).addClass(data.quote.dui == data.friend2.uid ? 'yes' : 'no');
+      $(person2div).addClass(data.quote.uid == data.friend2.uid ? 'yes' : 'no');
 
       $(".back h3", person1div).html(header(data.quote.uid == data.friend1.uid));
       $(".back h3", person2div).html(header(data.quote.uid == data.friend2.uid));
@@ -126,6 +126,11 @@ window.fbAsyncInit = function() {
       total_counter++;
       if ($(this).hasClass('yes')) right_counter++;
     }
+    $.getJSON('response', {
+      token:    FB.getAccessToken(),
+      myUID:    FB.getUserID(),
+      correct:  $(this).hasClass('yes')
+    });
     $(this).addClass('clicked');
     if ($(this).hasClass('no')) {
       setTimeout(function() {
