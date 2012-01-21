@@ -22,9 +22,9 @@ header = function(bool) {
 
 updateCounters = function(){
   $('#score').slideDown();
-  $('.right').html(right_counter);
-  $('.total').html(total_counter);
-  $('.percent').html(Math.round((right_counter/total_counter)*100));
+  $('#score .right').html(right_counter);
+  $('#score .total').html(total_counter);
+  $('#score .percent').html(Math.round((right_counter/total_counter)*100));
 }
 
 reinit = function() {
