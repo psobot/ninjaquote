@@ -186,7 +186,7 @@ window.fbAsyncInit = function() {
           $("#stats .top h2").html(
             'How well does '+userdata.first_name+" know "+(userdata.gender=='female'?'her':'his')+" friends?"
           );
-          $("#stats .top img").attr('src', "http://graph.facebook.com/"+user_uid+"/picture?format=large");
+          $("#stats .top img").attr('src', "http://graph.facebook.com/"+user_uid+"/picture?type=large");
           $("#stats").show();
         });
       }
