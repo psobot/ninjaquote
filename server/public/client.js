@@ -50,8 +50,8 @@ getNewQuestion = function() {
 }
 
 fetchScores = function(user_uid, callback) {
-  $.getJSON('scores', {uid: user_uid}, function(data){
-    console.log(data);
+  $.getJSON('scores', {my_uid: user_uid}, function(data){
+    window.log(data);
     callback(data);
   });
 }
