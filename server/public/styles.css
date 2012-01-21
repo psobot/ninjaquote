@@ -80,6 +80,11 @@ a:hover {
   max-height: 150px;
 }
 
+#stats ul li {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
 #stats ul li img {
   float: left;
   margin-right: 10px;
