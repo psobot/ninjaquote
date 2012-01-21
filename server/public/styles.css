@@ -147,6 +147,22 @@ a:hover {
   bottom: -30pt;
 }
 
+#score {
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+  display: none;
+}
+#score .right {
+
+}
+#score .total {
+
+}
+#score .percent {
+
+}
+
 #people_wrapper {
   margin: 0 auto;
   width: 320px;

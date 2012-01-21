@@ -20,6 +20,13 @@ header = function(bool) {
   return bool ? "Yup!" : "Nope!";
 }
 
+updateCounters = function(){
+  $('#score').slideDown();
+  $('.right').html(right_counter);
+  $('.total').html(total_counter);
+  $('.percent').html(Math.round((right_counter/total_counter)*100));
+}
+
 reinit = function() {
   $('.yes').removeClass('yes');
   $('.no').removeClass('no');
@@ -128,6 +135,7 @@ window.fbAsyncInit = function() {
     if (!$(this).hasClass('clicked')){
       total_counter++;
       if ($(this).hasClass('yes')) right_counter++;
+      updateCounters();
     }
     $.getJSON('response', {
       token:    FB.getAccessToken(),
