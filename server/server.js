@@ -86,18 +86,35 @@ var get_entry = function(token, callback, error) {
     });
 };
 
-var correct_reponse = function(token, status_id, response, callback, error) {
-    /*
-    db.hset("user:alex", entry.uid.toString()+"-t", 1);
-    db.hget("user:alex", entry.uid.toString()+"-t", function (err, saved_obj) {
-        console.dir(parseInt(saved_obj) + 1);
+var correct_reponse = function(my_uid, post_uid, correct, callback, error) {
+    var key = (correct == 'true') ? post_uid+"-t" : post_uid+"-f";
+    db.hget("user:" + my_uid, key, function (err, saved_obj) {
+        if (saved_obj == null) {
+            db.hset("user:" + my_uid, key, 1);
+        }
+        else {
+            db.hset("user:" + my_uid, key, parseInt(saved_obj) + 1);
+        }
+        
+        db.hget("user:" + my_uid, post_uid+"-t", function (err, saved_obj_t) {
+            db.hget("user:" + my_uid, post_uid+"-f", function (err, saved_obj_f) {
+                if (saved_obj_t == null) {
+                    saved_obj_t = '0';
+                }
+                if (saved_obj_f == null) {
+                    saved_obj_f = '0';
+                }
+                callback(parseInt(saved_obj_t), parseInt(saved_obj_f));
+            });
+        });
     });
-    
-    db.hset("user:alex", entry.uid.toString()+"-f", 1);
-    db.hget("user:alex", entry.uid.toString()+"-f", function (err, saved_obj) {
-        console.dir(parseInt(saved_obj) + 1);
+};
+
+var reponses = function(my_uid, callback, error) {
+    db.hgetall("user:" + my_uid, function (err, saved_obj) {
+        console.dir(saved_obj);
+        callback(saved_obj);
     });
-    */
 };
 
 app.get('/get_entry', function(req, res) {
@@ -115,8 +132,21 @@ app.get('/get_entry', function(req, res) {
 });
 
 app.get('/response', function(req, res) {
-    correct_reponse(req.query.token, req.query.status_id, req.query.user, function (correct_user) {
-        res.json(correct_user);
+    correct_reponse(req.query.my_uid, req.query.post_uid, req.query.correct, function (t_count, f_count) {
+        res.json({
+            t : t_count,
+            f : f_count
+        });
+    }, function () {
+        res.json({
+            error : "An error occurred"
+        });
+    });
+});
+
+app.get('/scores', function(req, res) {
+    reponses(req.query.my_uid, function (results) {
+        res.json(results);
     }, function () {
         res.json({
             error : "An error occurred"
