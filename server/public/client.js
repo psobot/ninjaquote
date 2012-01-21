@@ -1,4 +1,5 @@
 NEW_TIMER = 1000;
+REVEAL_TIMER = 500;
 
 window.log = function(){
   log.history = log.history || [];   // store logs to an array for reference
@@ -25,7 +26,7 @@ reinit = function() {
 //#next_spinner_container
 getQuestion = function() {
   $('#header').slideUp();
-  $('#question').slideUp();
+  $('#question').fadeOut();
   $("#loading").slideDown();
   fetchQuestion();
 }
@@ -43,7 +44,7 @@ fetchQuestion = function() {
     person1div = $(people[0]);
     person2div = $(people[1]);
 
-    $("#question").slideUp(function(){
+    $("#question").fadeOut(function(){
       reinit();
 
       $(".front h3", person1div).html(data.friend1.first_name);
@@ -77,7 +78,7 @@ fetchQuestion = function() {
       $('#quote p').html(data.quote.message);
 
       $('#loading, #next_spinner_container').slideUp();
-      $('#question').slideDown();    
+      $('#question').fadeIn();    
     });
   });
 }
@@ -127,7 +128,7 @@ window.fbAsyncInit = function() {
             getNewQuestion();
           }, NEW_TIMER);
         }
-      }, 1000);
+      }, REVEAL_TIMER);
     } else {
       setTimeout(function() {
         getNewQuestion();
