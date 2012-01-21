@@ -78,6 +78,7 @@ a:hover {
 
 
 #next_spinner_container {
+  background: #ccc;
   height: 32px;
   padding: 16px;
   width: 240px;
@@ -85,7 +86,6 @@ a:hover {
   position: absolute;
   top: 0;
   left: 210px;
-  display: none;
 }
 
 .spinner {
@@ -103,6 +103,8 @@ a:hover {
   font-size: 66pt;
   text-align: left;
   margin-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 #quote_wrapper {
