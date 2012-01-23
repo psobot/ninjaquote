@@ -21,6 +21,7 @@ db.on("error", function (err) {
 });
 
 var page_size = 250;
+var recursion_limit = 5;
 
 var get_random_friends = function(token, num, callback, error) {
     var query = 'SELECT+uid2+FROM+friend+WHERE+uid1=me()';
@@ -71,19 +72,23 @@ var get_random_quote = function(token, id, callback, error) {
     });
 };
 
-var get_entry = function(token, callback, error) {
-    get_random_friends(token, 2, function (friends) {
-        var chosen_one = (Math.floor(Math.random() * 2) == 0) ? friends[0] : friends[1];
-        get_random_quote(token, chosen_one.uid, function (quote) {
-            callback(friends[0], friends[1], quote);
+var get_entry = function(token, callback, error, iteration) {
+    if (iteration > recursion_limit){
+        error();
+    } else {
+        get_random_friends(token, 2, function (friends) {
+            var chosen_one = (Math.floor(Math.random() * 2) == 0) ? friends[0] : friends[1];
+            get_random_quote(token, chosen_one.uid, function (quote) {
+                callback(friends[0], friends[1], quote);
+            }, function () {
+                console.log("retry - could not retrieve quote, iteration "+iteration);
+                get_entry(token, callback, error, iteration+1);
+            });
         }, function () {
-            console.log("retry - could not retrieve quote");
-            get_entry(token, callback, error);
+            console.log("retry - could not retrieve friends, iteration "+iteration);
+            get_entry(token, callback, error, iteration+1);
         });
-    }, function () {
-        console.log("retry - could not retrieve friends");
-        get_entry(token, callback, error);
-    });
+    }
 };
 
 var correct_reponse = function(my_uid, post_uid, correct, callback, error) {
@@ -128,7 +133,7 @@ app.get('/get_entry', function(req, res) {
         res.json({
             error : "An error occurred"
         });
-    });
+    }, 0);
 });
 
 app.get('/response', function(req, res) {
