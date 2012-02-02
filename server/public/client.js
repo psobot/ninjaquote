@@ -133,6 +133,7 @@ loadFB = function() {
     window.log(response);
     if (response.authResponse) {
       $('.fb-login-button').fadeOut();
+      $('.start').slideUp();
       getQuestion();
     } else {
       window.log('User cancelled login or did not fully authorize.');
